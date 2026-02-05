@@ -1,0 +1,279 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #1f2937;
+  line-height: 1.5;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.nav-logo img {
+  height: 42px;
+  border-radius: 6px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: #2563eb;
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+header {
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+#title {
+  font-size: 2rem;
+}
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+section {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+section p {
+  color: #4b5563;
+}
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --danger: #e74c3c;
+  --danger-dark: #c0392b;
+  --bg: #f4f6f8;
+  --text: #1f2937;
+  --border: #d1d5db;
+}
+
+#disponibles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 8px;
+  margin-top: 15px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header h1 img {
+  height: 45px;
+}
+
+.numero {
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.numero:hover {
+  background: #eef2ff;
+  transform: scale(1.05);
+}
+
+.numero.seleccionado {
+  background: #2563eb;
+  color: white;
+  border-color: #1e40af;
+}
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 350px;
+  margin: 12% auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  animation: aparecer 0.3s ease;
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.close:hover {
+  color: black;
+}
+
+/* --- NÚMEROS OCUPADOS (en rojo) --- */
+.ocupado {
+  background: #e74c3c;
+  color: white;
+  border-color: #c0392b;
+  cursor: not-allowed;
+}
+
+.ocupado:hover {
+  transform: none;
+}
+
+.success {
+  margin-top: 12px;
+  color: #16a34a;
+  font-weight: bold;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+button:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+.btnVerNumeros {
+  margin-top: 10px;
+}
+#confirmar {
+  margin-top: 20px;
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+/* Loader styles */
+.hidden {
+  display: none;
+}
+
+.loader {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}

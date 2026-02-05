@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atomic Rifa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img src="assets/Atomic-bombs.jpg" alt="Logo" />
+        <span>Atomic Bombs</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#premios">Premios</a></li>
+        <li><a href="#numeros">Números</a></li>
+        <li><a href="#acerca">Acerca de</a></li>
+      </ul>
+    </nav>
+    <header>
+      <h1 id="title">Bienvenido a Rifas atomicas</h1>
+    </header>
+    <main>
+      <section id="premios">
+        <h2>Premios</h2>
+        <p>Participá por increíbles premios comprando tu número.</p>
+      </section>
+      <section id="numeros">
+        <h2>Números disponibles</h2>
+        <button class="btnVerNumeros">Ver números</button>
+
+        <div id="disponibles"></div>
+
+        <!-- Botón para confirmar (SIEMPRE visible en la interfaz) -->
+        <button id="confirmar">Confirmar selección</button>
+      </section>
+      <section id="acerca">
+        <h2>Acerca de</h2>
+        <p>
+          Este sorteo tiene como objetivo recaudar fondos y ofrecer premios a
+          los participantes.
+        </p>
+      </section>
+      <!-- Modal oculto -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span id="closeModal" class="close">&times;</span>
+          <p id="numerosSeleccionados"></p>
+
+          <!-- Formulario dentro del modal -->
+          <form id="userForm">
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="Nombre"
+              required
+            />
+            <input
+              type="text"
+              id="celular"
+              name="celular"
+              placeholder="Celular"
+              required
+            />
+            <select id="metodoPago" name="metodoPago" required>
+              <option value="">Seleccionar método de pago</option>
+              <option value="transferencia">Transferencia</option>
+              <option value="efectivo">Efectivo</option>
+            </select>
+            <div id="transferenciaBox" class="hidden">
+              <p><strong>Datos para transferir:</strong></p>
+              <p>Banco Nación</p>
+              <p>CBU: 1234567890123456789012</p>
+              <p>Alias: RIFA.ATOMICA</p>
+
+              <p style="margin-top: 10px">
+                Una vez que hayas abonado, una Atomica te escribira de
+                inmediato. Exitos y esperemos que ganes!!!
+              </p>
+            </div>
+
+            <button id="guardar" type="submit">Guardar</button>
+          </form>
+          <div id="formLoader" class="loader hidden">⏳ Guardando datos...</div>
+
+          <p id="mensajeExito" class="success hidden">¡Guardado con éxito!</p>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2025 Alessia Precedo. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+  <script type="module" src="./js/main.js"></script>
+</html>
