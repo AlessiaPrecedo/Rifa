@@ -1,7 +1,6 @@
 import { getTakenNumbersFromFirestore } from "./data/firestorenumbers.js";
 
 import { NumbersService } from "./services/NumbersService.js";
-import { User } from "./models/User.js";
 import { Modal } from "./ui/Modal.js";
 import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
 
@@ -13,6 +12,7 @@ let numbersService;
 const allNumbers = Array.from({ length: 100 }, (_, i) => i + 1);
 async function initApp() {
   const takenNumbers = await getTakenNumbersFromFirestore();
+
   numbersService = new NumbersService(allNumbers, takenNumbers);
 }
 

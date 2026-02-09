@@ -10,11 +10,22 @@
   </head>
 
   <body>
-    <h1>Panel Admin - Rifas</h1>
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img src="../assets/Atomic-bombs.jpg" alt="Logo" />
+        <span class="badge-admin">Admin</span>
+      </div>
 
-    <section id="admin">
-      <h2>Compradores</h2>
-      <div id="adminList"></div>
-    </section>
+      <button id="btn-logout">Cerrar sesión</button>
+    </nav>
+
+    <main class="admin-container">
+      <h1 class="admin-title">Panel Admin - Rifas</h1>
+
+      <section id="admin" class="admin-card">
+        <h2>Compradores</h2>
+        <div id="adminList" class="admin-list"></div>
+      </section>
+    </main>
   </body>
 </html>

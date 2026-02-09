@@ -4,7 +4,10 @@ import {
   eliminarUsuarioYRestaurarNumeros,
 } from "./data/firestoreUsers.js";
 import { auth, db } from "./firebase/firebaseConfig.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -17,7 +20,17 @@ onAuthStateChanged(auth, (user) => {
     listenUsersRealtime(renderAdminList);
   }
 });
-
+//cerrar sesion
+const btnLogout = document.getElementById("btn-logout");
+btnLogout.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    console.log("Admin deslogueado");
+    window.location.replace("login.html");
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+  }
+});
 // Borra la línea que estaba al final del archivo:
 // listenUsersRealtime(renderAdminList); <-- ESTA NO VA AQUÍ
 
