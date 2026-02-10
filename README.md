@@ -1,9 +1,5 @@
-# 🎟️ Rifa - Sistema de Gestión de Sorteos
 
 # 🎟️ Rifa - Sistema de Gestión de Sorteos
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-
-
 
 Proyecto web desarrollado con HTML, CSS y JavaScript que simula un sistema de gestión de rifa.
 
