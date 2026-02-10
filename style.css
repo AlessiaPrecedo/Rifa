@@ -37,6 +37,11 @@ body {
   height: 42px;
   border-radius: 6px;
 }
+/*index*/
+.navbar-brand img {
+  height: 42px;
+  border-radius: 6px;
+}
 
 .nav-links {
   list-style: none;

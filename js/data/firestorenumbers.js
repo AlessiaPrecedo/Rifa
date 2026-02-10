@@ -13,7 +13,7 @@ export async function getTakenNumbersFromFirestore() {
   const takenNumbers = [];
 
   snapshot.forEach((doc) => {
-    takenNumbers.push(doc.data().numero); // 👈 solo el número
+    takenNumbers.push(doc.data().numero); //  solo el número
   });
 
   return takenNumbers;
@@ -29,7 +29,7 @@ export async function reservarNumerosSeguro({
     const numbersRefs = numeros.map((num) => doc(db, "numbers", String(num)));
     const userRef = doc(collection(db, "users"));
 
-    // 🟢 READS
+    // READS
     for (const ref of numbersRefs) {
       const snap = await transaction.get(ref);
       if (snap.exists()) {
@@ -37,7 +37,7 @@ export async function reservarNumerosSeguro({
       }
     }
 
-    // 🟢 WRITES
+    // WRITES
     for (const ref of numbersRefs) {
       transaction.set(ref, {
         numero: Number(ref.id),

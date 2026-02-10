@@ -16,10 +16,11 @@ onAuthStateChanged(auth, (user) => {
   } else {
     console.log("Acceso concedido al admin:", user.uid);
 
-    // IMPORTANTE: Solo llamar a la base de datos cuando ya estamos logueados
+    // Solo llamar a la base de datos cuando ya estamos logueados
     listenUsersRealtime(renderAdminList);
   }
 });
+
 //cerrar sesion
 const btnLogout = document.getElementById("btn-logout");
 btnLogout.addEventListener("click", async () => {
@@ -31,9 +32,6 @@ btnLogout.addEventListener("click", async () => {
     console.error("Error al cerrar sesión:", error);
   }
 });
-// Borra la línea que estaba al final del archivo:
-// listenUsersRealtime(renderAdminList); <-- ESTA NO VA AQUÍ
-
 const adminList = document.getElementById("adminList");
 
 console.log("✅ admin.js cargado");
