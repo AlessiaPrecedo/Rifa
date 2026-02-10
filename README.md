@@ -1,6 +1,10 @@
 
 # 🎟️ Rifa - Sistema de Gestión de Sorteos
 
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+
 Proyecto web desarrollado con HTML, CSS y JavaScript que simula un sistema de gestión de rifa.
 
 Los usuarios pueden reservar números disponibles, mientras que el administrador puede visualizar la información de cada compra, incluyendo el comprador, la forma de pago y la fecha y hora de la operación.
