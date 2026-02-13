@@ -209,17 +209,28 @@ header h1 img {
 }
 
 /* --- NÚMEROS OCUPADOS (en rojo) --- */
-.ocupado {
+.vendido {
   background: #e74c3c;
   color: white;
   border-color: #c0392b;
   cursor: not-allowed;
 }
 
-.ocupado:hover {
+.vendido:hover {
   transform: none;
 }
-
+.reservado {
+  background: #f59e0b;
+  color: white;
+  border-color: #d97706;
+  cursor: not-allowed;
+}
+.vendido:hover {
+  transform: none;
+}
+.reservado:hover {
+  transform: none;
+}
 .success {
   margin-top: 12px;
   color: #16a34a;

@@ -8,17 +8,20 @@ import {
 
 import { db } from "../firebase/firebaseConfig.js";
 
+// 1. Obtener todos los números para pintar el mapa de la rifa
 export async function getTakenNumbersFromFirestore() {
   const snapshot = await getDocs(collection(db, "numbers"));
-  const takenNumbers = [];
+  const states = {};
 
   snapshot.forEach((doc) => {
-    takenNumbers.push(doc.data().numero); //  solo el número
+    // Retornamos un objeto donde la clave es el número y el valor es su estado
+    states[doc.id] = doc.data().estado;
   });
 
-  return takenNumbers;
+  return states;
 }
 
+// 2. Transacción segura para reservar
 export async function reservarNumerosSeguro({
   nombre,
   celular,
@@ -26,36 +29,43 @@ export async function reservarNumerosSeguro({
   metodoPago,
 }) {
   await runTransaction(db, async (transaction) => {
-    const numbersRefs = numeros.map((num) => doc(db, "numbers", String(num)));
+    // Formateamos los IDs a "00", "01", etc.
+    const numbersRefs = numeros.map((num) =>
+      doc(db, "numbers", String(num).padStart(2, "0")),
+    );
     const userRef = doc(collection(db, "users"));
 
-    // READS
+    // --- LECTURAS (READS) ---
     for (const ref of numbersRefs) {
       const snap = await transaction.get(ref);
-      if (snap.exists()) {
-        throw new Error(`❌ El número ${ref.id} ya está reservado`);
+      if (!snap.exists()) {
+        throw new Error(`❌ El número ${ref.id} no existe en la base de datos`);
+      }
+      if (snap.data().estado !== "disponible") {
+        throw new Error(`❌ El número ${ref.id} ya no está disponible`);
       }
     }
 
-    // WRITES
+    // --- ESCRITURAS (WRITES) ---
+    const userId = userRef.id;
+
+    // Actualizamos el estado en la colección 'numbers'
     for (const ref of numbersRefs) {
-      transaction.set(ref, {
-        numero: Number(ref.id),
-        nombre,
-        celular,
-        metodoPago,
-        pagoConfirmado: false,
-        createdAt: serverTimestamp(),
+      transaction.update(ref, {
+        estado: "reservado",
+        UsuarioId: userId,
+        fechaTransaccion: serverTimestamp(),
       });
     }
 
+    // Creamos la ficha del cliente en 'users' (aquí centralizamos sus datos)
     transaction.set(userRef, {
       nombre,
       celular,
-      numeros,
+      numeros, // Array de números elegidos
       metodoPago,
       pagoConfirmado: false,
-      createdAt: serverTimestamp(),
+      fecha: serverTimestamp(),
     });
   });
 }

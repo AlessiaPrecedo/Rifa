@@ -9,11 +9,15 @@ import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
 // --------------------
 let numbersService;
 
-const allNumbers = Array.from({ length: 100 }, (_, i) => i + 1);
+const allNumbers = Array.from({ length: 100 }, (_, i) => i + 1).map((num) =>
+  num.toString().padStart(2, "0"),
+);
 async function initApp() {
-  const takenNumbers = await getTakenNumbersFromFirestore();
+  const statesMap = await getTakenNumbersFromFirestore();
 
-  numbersService = new NumbersService(allNumbers, takenNumbers);
+  numbersService = new NumbersService(allNumbers, statesMap);
+
+  if (numerosVisibles) renderNumeros();
 }
 
 initApp();
@@ -49,22 +53,30 @@ console.log("btnVer:", btnVer);
 function renderNumeros() {
   contenedor.innerHTML = "";
 
-  allNumbers.forEach((num) => {
+  allNumbers.forEach((numId) => {
     const div = document.createElement("div");
-    div.textContent = num;
+    div.textContent = numId;
     div.classList.add("numero");
 
-    if (numbersService.isTaken(num)) {
-      div.classList.add("ocupado");
+    // Obtenemos el estado directamente del service usando el ID ("01", "02"...)
+    const estado = numbersService.getEstado(numId);
+
+    if (estado === "vendido") {
+      div.classList.add("vendido");
+    } else if (estado === "reservado") {
+      div.classList.add("reservado");
     }
 
-    if (numbersService.selectedNumbers.includes(num)) {
+    // Selección actual del usuario
+    if (numbersService.selectedNumbers.includes(numId)) {
       div.classList.add("seleccionado");
     }
-    div.addEventListener("click", () => {
-      if (numbersService.isTaken(num)) return; // 🚫 no tocar ocupados
 
-      numbersService.toggleNumber(num);
+    div.addEventListener("click", () => {
+      // Bloqueamos si no está disponible
+      if (estado !== "disponible") return;
+
+      numbersService.toggleNumber(numId);
       renderNumeros();
     });
 

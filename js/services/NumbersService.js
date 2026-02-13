@@ -1,26 +1,20 @@
 export class NumbersService {
-  constructor(allNumbers, takenNumbers = []) {
+  constructor(allNumbers, statesMap) {
     this.allNumbers = allNumbers;
-    this.takenNumbers = takenNumbers;
+    this.statesMap = statesMap; // Guardamos el objeto de Firestore
     this.selectedNumbers = [];
   }
 
-  toggleNumber(num) {
-    if (this.takenNumbers.includes(num)) return;
+  getEstado(numId) {
+    // Si el número no existe en el mapa, por defecto está disponible
+    return this.statesMap[numId] || "disponible";
+  }
 
-    if (this.selectedNumbers.includes(num)) {
-      this.selectedNumbers = this.selectedNumbers.filter((n) => n !== num);
+  toggleNumber(numId) {
+    if (this.selectedNumbers.includes(numId)) {
+      this.selectedNumbers = this.selectedNumbers.filter((n) => n !== numId);
     } else {
-      this.selectedNumbers.push(num);
+      this.selectedNumbers.push(numId);
     }
-  }
-
-  confirmSelection() {
-    this.takenNumbers.push(...this.selectedNumbers);
-    this.selectedNumbers = [];
-  }
-
-  isTaken(num) {
-    return this.takenNumbers.includes(num);
   }
 }
