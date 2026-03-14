@@ -45,6 +45,7 @@ function renderAdminList(users) {
       📞 ${user.celular}<br>
       🎟 Números: ${user.numeros.join(", ")}<br>
       💳 Pago: ${user.metodoPago}<br>
+      💰 Total: $${(user.total ?? "Sin dato").toLocaleString("es-AR")}
 
       <button class="btnConfirmarPago" data-id="${user.id}">
         ${user.pagoConfirmado ? "✅ Pagado" : "❌ Pendiente"}
@@ -93,5 +94,47 @@ function configurarBotones(users) {
         await eliminarUsuarioYRestaurarNumeros(user);
       }
     });
+  });
+}
+const CLOUD_NAME = "dhl9hiafv";
+const UPLOAD_PRESET = "atomic";
+const FOTOS_KEY = "carrusel_fotos"; // clave en localStorage
+
+const inputFoto = document.getElementById("inputFoto");
+const btnSubirFoto = document.getElementById("btnSubirFoto");
+const uploadStatus = document.getElementById("uploadStatus");
+const listaFotos = document.getElementById("listaFotos");
+
+// Obtener fotos guardadas
+function getFotos() {
+  return JSON.parse(localStorage.getItem(FOTOS_KEY) || "[]");
+}
+
+// Guardar fotos
+function saveFotos(fotos) {
+  localStorage.setItem(FOTOS_KEY, JSON.stringify(fotos));
+}
+
+// Renderizar fotos en el admin
+function cargarFotosAdmin() {
+  const fotos = getFotos();
+  listaFotos.innerHTML = "";
+
+  if (fotos.length === 0) {
+    listaFotos.innerHTML = "<p>No hay fotos cargadas.</p>";
+    return;
+  }
+
+  fotos.forEach((foto, index) => {
+    listaFotos.innerHTML += `
+      <div style="position:relative; width:120px;">
+        <img src="${foto.url}" style="width:120px; height:90px; object-fit:cover; border-radius:8px;" />
+        <button 
+          onclick="eliminarFoto(${index})"
+          style="position:absolute; top:4px; right:4px; background:red; color:white; border:none; border-radius:50%; cursor:pointer; width:22px; height:22px; font-size:12px;">
+          ✕
+        </button>
+      </div>
+    `;
   });
 }

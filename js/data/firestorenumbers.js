@@ -49,7 +49,6 @@ export async function reservarNumerosSeguro({
     // --- ESCRITURAS (WRITES) ---
     const userId = userRef.id;
 
-    // Actualizamos el estado en la colección 'numbers'
     for (const ref of numbersRefs) {
       transaction.update(ref, {
         estado: "reservado",
@@ -58,12 +57,18 @@ export async function reservarNumerosSeguro({
       });
     }
 
-    // Creamos la ficha del cliente en 'users' (aquí centralizamos sus datos)
+    // Calculamos el total con descuento
+    const precioUnitario = 4000;
+    const tieneDescuento = numeros.length >= 2;
+    const subtotal = numeros.length * precioUnitario;
+    const total = tieneDescuento ? subtotal * 0.75 : subtotal;
+
     transaction.set(userRef, {
       nombre,
       celular,
-      numeros, // Array de números elegidos
+      numeros,
       metodoPago,
+      total,
       pagoConfirmado: false,
       fecha: serverTimestamp(),
     });

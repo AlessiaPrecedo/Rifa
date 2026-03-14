@@ -4,6 +4,7 @@ export class Modal {
     this.closeBtn = document.getElementById("closeModal");
     this.mensajeExito = document.getElementById("mensajeExito");
     this.numerosSeleccionados = document.getElementById("numerosSeleccionados");
+    this.totalPagar = document.getElementById("totalPagar");
 
     this._init();
   }
@@ -18,6 +19,16 @@ export class Modal {
   open(numeros) {
     this.numerosSeleccionados.textContent =
       "Tus números: " + numeros.join(", ");
+
+    const precioUnitario = 3000;
+    const tieneDescuento = numeros.length >= 2;
+    const subtotal = numeros.length * precioUnitario;
+    const total = tieneDescuento ? subtotal * 0.75 : subtotal;
+
+    this.totalPagar.innerHTML = tieneDescuento
+      ? `<s>$${subtotal.toLocaleString("es-AR")}</s> $${total.toLocaleString("es-AR")} <span style="color: green">(25% OFF)</span>`
+      : `$${total.toLocaleString("es-AR")}`;
+
     this.modal.style.display = "block";
   }
 

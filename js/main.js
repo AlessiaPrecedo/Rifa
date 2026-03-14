@@ -9,9 +9,10 @@ import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
 // --------------------
 let numbersService;
 
-const allNumbers = Array.from({ length: 100 }, (_, i) => i + 1).map((num) =>
+const allNumbers = Array.from({ length: 100 }, (_, i) => i).map((num) =>
   num.toString().padStart(2, "0"),
 );
+
 async function initApp() {
   const statesMap = await getTakenNumbersFromFirestore();
 
@@ -87,11 +88,24 @@ function renderNumeros() {
 // --------------------
 // EVENTOS
 // --------------------
+// --------------------
+// EVENTOS
+// --------------------
 
 let numerosVisibles = false;
-
 btnVer.addEventListener("click", () => {
+  if (!numbersService) return; // ← guarda
+
   if (!numerosVisibles) {
+    const hayDisponibles = allNumbers.some(
+      (numId) => numbersService.getEstado(numId) === "disponible",
+    );
+
+    if (!hayDisponibles) {
+      document.getElementById("modalSinNumeros").style.display = "block";
+      return;
+    }
+
     renderNumeros();
     btnVer.textContent = "Ocultar números";
     numerosVisibles = true;
@@ -99,6 +113,16 @@ btnVer.addEventListener("click", () => {
     contenedor.innerHTML = "";
     btnVer.textContent = "Ver números";
     numerosVisibles = false;
+  }
+});
+
+// Cierre modalSinNumeros — fuera del btnConfirmar
+document.getElementById("closeSinNumeros").addEventListener("click", () => {
+  document.getElementById("modalSinNumeros").style.display = "none";
+});
+window.addEventListener("click", (e) => {
+  if (e.target === document.getElementById("modalSinNumeros")) {
+    document.getElementById("modalSinNumeros").style.display = "none";
   }
 });
 
@@ -167,4 +191,53 @@ btnConfirmar.addEventListener("click", () => {
   }
 
   modalUI.open(numbersService.selectedNumbers);
+});
+
+function cargarCarrusel() {
+  const fotos = [
+    "assets/premios/premio1.jpg",
+    "assets/premios/premio2.jpg",
+    "assets/premios/premio3.jpg",
+    "assets/premios/premio4.jpg",
+    "assets/premios/premio5.jpg",
+    // agregás o quitás fotos acá
+  ];
+  const inner = document.getElementById("carruselInner");
+  const sinFotos = document.getElementById("sinFotos");
+
+  if (fotos.length === 0) {
+    sinFotos.style.display = "block";
+    return;
+  }
+
+  fotos.forEach((foto, index) => {
+    inner.innerHTML += `
+      <div class="carousel-item ${index === 0 ? "active" : ""}">
+        <img 
+          src="${foto}" 
+          class="d-block w-100" 
+          style="max-height:400px; object-fit:cover; border-radius:10px; cursor:zoom-in;"
+          onclick="abrirZoom('${foto}')"
+        />
+      </div>
+    `;
+  });
+}
+
+cargarCarrusel();
+// Zoom
+window.abrirZoom = (src) => {
+  const modal = document.getElementById("modalZoom");
+  const img = document.getElementById("imgZoom");
+  img.src = src;
+  modal.style.display = "flex";
+};
+
+window.cerrarZoom = () => {
+  document.getElementById("modalZoom").style.display = "none";
+};
+
+// Cerrar con ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") cerrarZoom();
 });

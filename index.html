@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="../assets/Atomic-bombs.jpg" />
     <title>Atomic Rifa</title>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -16,7 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"
-          ><img src="assets/Atomic-bombs.jpg" alt="logo"
+          ><img src="assets/Atomic-bombs.png" alt="logo"
         /></a>
         <button
           class="navbar-toggler"
@@ -53,10 +54,21 @@
       <h1 id="title">Bienvenido a Rifas atomicas</h1>
     </header>
     <main>
-      <section id="premios">
-        <h2>Premios</h2>
-        <p>Participá por increíbles premios comprando tu número.</p>
-      </section>
+    <section id="premios">
+  <h2>Premios</h2>
+  <p>Participá por este kit fitness para entrenar donde quieras.</p>
+
+  <div id="carruselFotos" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" id="carruselInner"></div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carruselFotos" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carruselFotos" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+  <p id="sinFotos" style="display:none; text-align:center;">Próximamente los premios...</p>
+</section>
       <section id="numeros">
         <h2>Números disponibles</h2>
         <button class="btnVerNumeros">Ver números</button>
@@ -67,63 +79,124 @@
         <button id="confirmar">Confirmar selección</button>
       </section>
       <section id="acerca">
-        <h2>Acerca de</h2>
-        <p>
-          Este sorteo tiene como objetivo recaudar fondos y ofrecer premios a
-          los participantes.
-          <br />
-        </p>
-      </section>
+  <div class="acerca-hero">
+    <p class="acerca-grito">🛼💥 ¡LLEGO EL ARGENCHAMPS!</p>
+    <p class="acerca-sub">Ayudanos a costear los gastos que implica competir en un torneo nacional. ¡Todo suma!</p>
+  </div>
+
+  <div class="acerca-cards">
+
+    <div class="acerca-card">
+      <h3>🎟️ La Rifa</h3>
+      <p>Hoy te traemos una <strong>rifa imperdible</strong> para apoyar a Atomic Bombs Roller Derby.</p>
+    </div>
+
+    <div class="acerca-card">
+      <h3>🎁 Premio</h3>
+      <p><strong>Kit Deportivo</strong> para sumar a tus elementos de entrenamiento:</p>
+      <ul>
+        <li>Ruedita</li>
+        <li>Soga</li>
+        <li>Cinta estirable</li>
+        <li>Hand Grip</li>
+        <li>Push Up Bars</li>
+      </ul>
+    </div>
+
+ <div class="acerca-card-precios">
+  <h3>💰 Precios</h3>
+  <p class="precio">1 número: <strong>$3.000</strong></p>
+  <p class="precio">2 o más números: <strong>25% de descuento</strong> 🔥</p>
+</div>
+
+    <div class="acerca-card acerca-fecha">
+      <h3>📅 Sorteo</h3>
+      <p class="fecha-grande">11 / 04</p>
+    </div>
+
+  </div>
+
+  <p class="acerca-cierre">¡Gracias por apoyar a Atomic Bombs Roller Derby! 💣🛼</p>
+</section>
       <!-- Modal oculto -->
       <div id="modal" class="modal">
-        <div class="modal-content">
-          <span id="closeModal" class="close">&times;</span>
-          <p id="numerosSeleccionados"></p>
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <p id="numerosSeleccionados"></p>
+    <p id="totalPagar"></p>
 
-          <!-- Formulario dentro del modal -->
-          <form id="userForm">
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              placeholder="Nombre"
-              required
-            />
-            <input
-              type="text"
-              id="celular"
-              name="celular"
-              placeholder="Celular"
-              required
-            />
-            <select id="metodoPago" name="metodoPago" required>
-              <option value="">Seleccionar método de pago</option>
-              <option value="transferencia">Transferencia</option>
-              <option value="efectivo">Efectivo</option>
-            </select>
-            <div id="transferenciaBox" class="hidden">
-              <p><strong>Datos para transferir:</strong></p>
-              <p>Banco Nación</p>
-              <p>CBU: 1234567890123456789012</p>
-              <p>Alias: RIFA.ATOMICA</p>
-
-              <p style="margin-top: 10px">
-                Una vez que hayas abonado, una Atomica te escribira de
-                inmediato. Exitos y esperemos que ganes!!!
-              </p>
-            </div>
-
-            <button id="guardar" type="submit">Guardar</button>
-          </form>
-          <div id="formLoader" class="loader hidden">⏳ Guardando datos...</div>
-
-          <p id="mensajeExito" class="success hidden">¡Guardado con éxito!</p>
-        </div>
+    <!-- Formulario dentro del modal -->
+    <form id="userForm">
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre" required />
+      <input type="tel" id="celular" name="celular" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g, '').slice(0, 10)" required/>
+      <select id="metodoPago" name="metodoPago" required>
+        <option value="">Seleccionar método de pago</option>
+        <option value="transferencia">Transferencia</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+      <div id="transferenciaBox" class="hidden">
+        <p><strong>Datos para transferir:</strong></p>
+        <p>Banco Provincia</p>
+        <p>CBU: 0140130703505453704260</p>
+        <p>Alias: POPA.BLOQUE.ATADO</p>
+        <P>Alessia Precedo</P>
+        <p style="margin-top: 10px">
+          Una vez que hayas abonado, una Atomica te escribira de inmediato. Exitos y esperemos que ganes!!!
+        </p>
+      </div>
+      <button id="guardar" type="submit">Guardar</button>
+    </form>
+    <div id="formLoader" class="loader hidden">⏳ Guardando datos...</div>
+    <p id="mensajeExito" class="success hidden">¡Guardado con éxito!</p>
+  </div>
+</div>
+<div id="modalSinNumeros" class="modal">
+  <div class="modal-content" style="text-align: center;">
+    <span id="closeSinNumeros" class="close">&times;</span>
+    <div style="font-size: 3rem; margin-bottom: 10px;">😔</div>
+    <h2 style="color:#fff; font-size:1.3rem; margin-bottom:10px;">No hay números disponibles</h2>
+    <p style="color:rgba(255,255,255,0.6); font-size:0.95rem;">
+      Todos los números ya fueron vendidos.<br/>¡Gracias por tu interés!
+    </p>
+  </div>
+</div>
       </div>
     </main>
-    <footer>
-      <p>&copy; 2025 Alessia Precedo. Todos los derechos reservados.</p>
-    </footer>
+<footer>
+  <p>&copy; 2025 Atomic Bombs Roller Derby. Todos los derechos reservados. — Sitio creado por <a href="https://www.instagram.com/_desfasada_/">Alessia Precedo</a>.</p>
+</footer>
+
+<!-- Botones flotantes -->
+<div class="flotantes">
+  <a href="https://www.instagram.com/atomicbombsrollerderby/" target="_blank" class="flotante flotante-ig" title="Instagram">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163c-3.259 0-3.667.014-4.947.072-1.609.074-3.032.4-4.122 1.489C1.841 2.65 1.515 4.073 1.441 5.682 1.383 6.962 1.369 7.37 1.369 12c0 4.63.014 5.038.072 6.318.074 1.609.4 3.032 1.489 4.122 1.09 1.089 2.513 1.415 4.122 1.489C8.333 23.986 8.741 24 12 24c3.259 0 3.667-.014 4.947-.072 1.609-.074 3.032-.4 4.122-1.489 1.089-1.09 1.415-2.513 1.489-4.122.058-1.28.072-1.688.072-6.318 0-4.63-.014-5.038-.072-6.318-.074-1.609-.4-3.032-1.489-4.122C19.98 1.841 18.557 1.515 16.948 1.441 15.667 1.383 15.259 1.369 12 1.369zm0 5.838a4.793 4.793 0 1 0 0 9.586 4.793 4.793 0 0 0 0-9.586zm0 7.908a3.115 3.115 0 1 1 0-6.23 3.115 3.115 0 0 1 0 6.23zm6.406-8.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+    </svg>
+  </a>
+  <a href="mailto:atomic.bombs.roller.derby@gmail.com" class="flotante flotante-mail" title="Email">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+  </a>
+</div>
+<!-- Modal zoom carrusel -->
+<div id="modalZoom" onclick="cerrarZoom()" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  cursor:zoom-out;
+">
+  <img id="imgZoom" src="" style="
+    max-width:90vw;
+    max-height:90vh;
+    border-radius:12px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.6);
+  "/>
+</div>
   </body>
   <script type="module" src="./js/main.js"></script>
   <script
