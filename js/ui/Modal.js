@@ -1,10 +1,11 @@
 export class Modal {
-  constructor() {
+  constructor(onClose = null) {
     this.modal = document.getElementById("modal");
     this.closeBtn = document.getElementById("closeModal");
     this.mensajeExito = document.getElementById("mensajeExito");
     this.numerosSeleccionados = document.getElementById("numerosSeleccionados");
     this.totalPagar = document.getElementById("totalPagar");
+    this.onClose = onClose;
 
     this._init();
   }
@@ -34,6 +35,9 @@ export class Modal {
 
   close() {
     this.modal.style.display = "none";
+    if (typeof this.onClose === "function") {
+      this.onClose();
+    }
   }
 
   showSuccess() {

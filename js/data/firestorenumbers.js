@@ -14,14 +14,12 @@ export async function getTakenNumbersFromFirestore() {
   const states = {};
 
   snapshot.forEach((doc) => {
-    // Retornamos un objeto donde la clave es el número y el valor es su estado
     states[doc.id] = doc.data().estado;
   });
 
   return states;
 }
 
-// 2. Transacción segura para reservar
 export async function reservarNumerosSeguro({
   nombre,
   celular,
@@ -35,7 +33,6 @@ export async function reservarNumerosSeguro({
     );
     const userRef = doc(collection(db, "users"));
 
-    // --- LECTURAS (READS) ---
     for (const ref of numbersRefs) {
       const snap = await transaction.get(ref);
       if (!snap.exists()) {
@@ -46,7 +43,6 @@ export async function reservarNumerosSeguro({
       }
     }
 
-    // --- ESCRITURAS (WRITES) ---
     const userId = userRef.id;
 
     for (const ref of numbersRefs) {
@@ -58,7 +54,7 @@ export async function reservarNumerosSeguro({
     }
 
     // Calculamos el total con descuento
-    const precioUnitario = 4000;
+    const precioUnitario = 3000;
     const tieneDescuento = numeros.length >= 2;
     const subtotal = numeros.length * precioUnitario;
     const total = tieneDescuento ? subtotal * 0.75 : subtotal;

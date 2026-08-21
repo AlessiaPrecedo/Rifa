@@ -3,11 +3,18 @@ import { getTakenNumbersFromFirestore } from "./data/firestorenumbers.js";
 import { NumbersService } from "./services/NumbersService.js";
 import { Modal } from "./ui/Modal.js";
 import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
-
+import { setupCopyButtons } from "./ui/copyButtons.js";
+import premio1 from "../assets/premios/premio1.jpg";
+import premio2 from "../assets/premios/premio2.jpg";
+import premio3 from "../assets/premios/premio3.jpg";
+import premio4 from "../assets/premios/premio4.jpg";
+import premio5 from "../assets/premios/premio5.jpg";
 // --------------------
 // DATOS INICIALES
 // --------------------
 let numbersService;
+const MIN_CELULAR_DIGITOS = 10;
+const MAX_CELULAR_DIGITOS = 15;
 
 const allNumbers = Array.from({ length: 100 }, (_, i) => i).map((num) =>
   num.toString().padStart(2, "0"),
@@ -40,13 +47,18 @@ metodoPagoSelect.addEventListener("change", () => {
 const contenedor = document.getElementById("disponibles");
 const btnVer = document.querySelector(".btnVerNumeros");
 const btnConfirmar = document.getElementById("confirmar");
-const modal = document.getElementById("modal");
-const closeModal = document.getElementById("closeModal");
 const form = document.getElementById("userForm");
 const mensajeExito = document.getElementById("mensajeExito");
 const formLoader = document.getElementById("formLoader");
 const submitBtn = form.querySelector("button[type='submit']");
-console.log("btnVer:", btnVer);
+
+function resetModalFormState() {
+  form.reset();
+  transferenciaBox.classList.add("hidden");
+  formLoader.classList.add("hidden");
+  mensajeExito.classList.add("hidden");
+  submitBtn.disabled = false;
+}
 
 // --------------------
 // RENDER NUMEROS
@@ -68,13 +80,13 @@ function renderNumeros() {
       div.classList.add("reservado");
     }
 
-    // Selección actual del usuario
+    // Seleccion actual del usuario
     if (numbersService.selectedNumbers.includes(numId)) {
       div.classList.add("seleccionado");
     }
 
     div.addEventListener("click", () => {
-      // Bloqueamos si no está disponible
+      // Bloqueamos si no esta disponible
       if (estado !== "disponible") return;
 
       numbersService.toggleNumber(numId);
@@ -88,13 +100,10 @@ function renderNumeros() {
 // --------------------
 // EVENTOS
 // --------------------
-// --------------------
-// EVENTOS
-// --------------------
 
 let numerosVisibles = false;
 btnVer.addEventListener("click", () => {
-  if (!numbersService) return; // ← guarda
+  if (!numbersService) return; // <- guarda
 
   if (!numerosVisibles) {
     const hayDisponibles = allNumbers.some(
@@ -107,16 +116,16 @@ btnVer.addEventListener("click", () => {
     }
 
     renderNumeros();
-    btnVer.textContent = "Ocultar números";
+    btnVer.textContent = "Ocultar numeros";
     numerosVisibles = true;
   } else {
     contenedor.innerHTML = "";
-    btnVer.textContent = "Ver números";
+    btnVer.textContent = "Ver numeros";
     numerosVisibles = false;
   }
 });
 
-// Cierre modalSinNumeros — fuera del btnConfirmar
+// Cierre modalSinNumeros - fuera del btnConfirmar
 document.getElementById("closeSinNumeros").addEventListener("click", () => {
   document.getElementById("modalSinNumeros").style.display = "none";
 });
@@ -126,14 +135,12 @@ window.addEventListener("click", (e) => {
   }
 });
 
-closeModal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
 // --------------------
 // GUARDAR USUARIO
 // --------------------
-const modalUI = new Modal();
+const modalUI = new Modal(() => {
+  resetModalFormState();
+});
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -143,8 +150,17 @@ form.addEventListener("submit", async (e) => {
   const metodoPago = e.target.metodoPago.value;
   const numeros = [...numbersService.selectedNumbers];
 
+  if (
+    celular.length < MIN_CELULAR_DIGITOS ||
+    celular.length > MAX_CELULAR_DIGITOS
+  ) {
+    alert(
+      `El celular debe tener entre ${MIN_CELULAR_DIGITOS} y ${MAX_CELULAR_DIGITOS} numeros`,
+    );
+    return;
+  }
   if (!nombre || !celular || !metodoPago || numeros.length === 0) {
-    alert("Completá todos los campos");
+    alert("Completa todos los campos");
     return;
   }
 
@@ -165,17 +181,14 @@ form.addEventListener("submit", async (e) => {
     // ocultar loader
     formLoader.classList.add("hidden");
 
-    // mostrar éxito
+    // mostrar exito
     mensajeExito.classList.remove("hidden");
 
-    setTimeout(async () => {
-      modalUI.close();
-      form.reset();
-      numbersService.selectedNumbers = [];
-      submitBtn.disabled = false;
+    setTimeout(() => {
       mensajeExito.classList.add("hidden");
-      await initApp();
     }, 2000);
+
+    await initApp();
   } catch (error) {
     console.error(error);
     formLoader.classList.add("hidden");
@@ -186,21 +199,23 @@ form.addEventListener("submit", async (e) => {
 
 btnConfirmar.addEventListener("click", () => {
   if (numbersService.selectedNumbers.length === 0) {
-    alert("Seleccioná al menos un número");
+    alert("Selecciona al menos un numero");
     return;
   }
 
   modalUI.open(numbersService.selectedNumbers);
 });
 
+setupCopyButtons();
+
 function cargarCarrusel() {
   const fotos = [
-    "assets/premios/premio1.jpg",
-    "assets/premios/premio2.jpg",
-    "assets/premios/premio3.jpg",
-    "assets/premios/premio4.jpg",
-    "assets/premios/premio5.jpg",
-    // agregás o quitás fotos acá
+    premio1,
+    premio2,
+    premio3,
+    premio4,
+    premio5,
+    // agregas o quitas fotos aca
   ];
   const inner = document.getElementById("carruselInner");
   const sinFotos = document.getElementById("sinFotos");

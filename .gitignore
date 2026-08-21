@@ -13,6 +13,9 @@ build/
 # Entorno
 .env
 
+# Reglas locales de Firebase
+firestore.rules
+
 # Sistema
 .DS_Store
 Thumbs.db

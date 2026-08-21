@@ -13,7 +13,7 @@ import { db } from "../firebase/firebaseConfig.js";
 
 export function listenUsersRealtime(callback) {
   const usersRef = collection(db, "users");
-  // Asegúrate de que tus usuarios tengan el campo "fecha" o usa "orderBy('nombre')"
+
   const q = query(usersRef, orderBy("fecha", "desc"));
 
   onSnapshot(q, (snapshot) => {
@@ -48,12 +48,10 @@ export async function updatePagoConfirmado(user) {
   }
 }
 
-// --- ELIMINAR USUARIO Y RESTAURAR NÚMEROS A DISPONIBLE ---
 export async function eliminarUsuarioYRestaurarNumeros(user) {
   try {
     const batch = writeBatch(db);
 
-    // 1. RESTAURAR números (NO BORRAR)
     for (const num of user.numeros) {
       const idFormateado = num.toString().padStart(2, "0");
       const numberRef = doc(db, "numbers", idFormateado);

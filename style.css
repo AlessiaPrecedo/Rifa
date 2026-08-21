@@ -417,7 +417,7 @@ input:focus {
 
 .body-login {
   min-height: 100vh;
-  background-image: url("../assets/atomic.jpg");
+  background-image: url("./assets/atomic.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -599,20 +599,23 @@ input:focus {
 }
 
 .acerca-card {
-  background: #1a1a1a;
+  background: #5a5a5a;
   color: #fff;
   border-radius: 16px;
   padding: 24px 20px;
   width: 200px;
   text-align: left;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(82, 82, 82, 0.2);
 }
 
 .acerca-card h3 {
   font-size: 1rem;
   margin-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(199, 199, 199, 0.954);
   padding-bottom: 8px;
+}
+.cadr1 {
+  color: #b8b8b8;
 }
 
 .acerca-card ul {
@@ -673,14 +676,14 @@ input:focus {
 }
 
 .acerca-card {
-  background: #1a1a1a;
+  background: #434141;
   color: #fff;
   border-radius: 16px;
   padding: 24px 20px;
   width: calc(50% - 40px);
   min-width: 200px;
   text-align: left;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(65, 64, 64, 0.2);
 }
 
 .acerca-card h3 {

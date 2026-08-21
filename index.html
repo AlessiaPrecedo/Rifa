@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="../assets/Atomic-bombs.jpg" />
+    <link rel="icon" type="image/png" href="../assets//Atomic-bombs.png" />
     <title>Atomic Rifa</title>
     <link rel="stylesheet" href="style.css" />
     <link
@@ -56,7 +56,7 @@
     <main>
     <section id="premios">
   <h2>Premios</h2>
-  <p>Participá por este kit fitness para entrenar donde quieras.</p>
+  <p>Particip&aacute; por este kit fitness para entrenar donde quieras.</p>
 
   <div id="carruselFotos" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carruselInner"></div>
@@ -67,33 +67,33 @@
       <span class="carousel-control-next-icon"></span>
     </button>
   </div>
-  <p id="sinFotos" style="display:none; text-align:center;">Próximamente los premios...</p>
+  <p id="sinFotos" style="display:none; text-align:center;">Pr&oacute;ximamente los premios...</p>
 </section>
       <section id="numeros">
-        <h2>Números disponibles</h2>
-        <button class="btnVerNumeros">Ver números</button>
+        <h2>N&uacute;meros disponibles</h2>
+        <button class="btnVerNumeros">Ver n&uacute;meros</button>
 
         <div id="disponibles"></div>
 
-        <!-- Botón para confirmar (SIEMPRE visible en la interfaz) -->
-        <button id="confirmar">Confirmar selección</button>
+        <!-- Bot&oacute;n para confirmar (SIEMPRE visible en la interfaz) -->
+        <button id="confirmar">Confirmar selecci&oacute;n</button>
       </section>
       <section id="acerca">
   <div class="acerca-hero">
-    <p class="acerca-grito">🛼💥 ¡LLEGO EL ARGENCHAMPS!</p>
-    <p class="acerca-sub">Ayudanos a costear los gastos que implica competir en un torneo nacional. ¡Todo suma!</p>
+    <p class="acerca-grito">&#x1F6FC;&#x1F4A5; &iexcl;LLEGO EL ARGENCHAMPS!</p>
+    <p class="acerca-sub">Ayudanos a costear los gastos que implica competir en un torneo nacional. &iexcl;Todo suma!</p>
   </div>
 
   <div class="acerca-cards">
 
     <div class="acerca-card">
-      <h3>🎟️ La Rifa</h3>
-      <p>Hoy te traemos una <strong>rifa imperdible</strong> para apoyar a Atomic Bombs Roller Derby.</p>
+      <h3>&#x1F39F;&#xFE0F; La Rifa</h3>
+      <p class="cadr1">Hoy te traemos una <strong>rifa imperdible</strong> para apoyar a Atomic Bombs Roller Derby.</p>
     </div>
 
     <div class="acerca-card">
-      <h3>🎁 Premio</h3>
-      <p><strong>Kit Deportivo</strong> para sumar a tus elementos de entrenamiento:</p>
+      <h3>&#x1F381; Premio</h3>
+      <p class="cadr1"><strong>Kit Deportivo</strong> para sumar a tus elementos de entrenamiento:</p>
       <ul>
         <li>Ruedita</li>
         <li>Soga</li>
@@ -104,19 +104,19 @@
     </div>
 
  <div class="acerca-card-precios">
-  <h3>💰 Precios</h3>
-  <p class="precio">1 número: <strong>$3.000</strong></p>
-  <p class="precio">2 o más números: <strong>25% de descuento</strong> 🔥</p>
+  <h3>&#x1F4B0; Precios</h3>
+  <p class="precio">1 n&uacute;mero: <strong>$3.000</strong></p>
+  <p class="precio">2 o m&aacute;s n&uacute;meros: <strong>25% de descuento</strong> &#x1F525;</p>
 </div>
 
     <div class="acerca-card acerca-fecha">
-      <h3>📅 Sorteo</h3>
-      <p class="fecha-grande">11 / 04</p>
+      <h3>&#x1F4C5; Sorteo</h3>
+      <p class="fecha-grande cadr1">18 / 04</p>
     </div>
 
   </div>
 
-  <p class="acerca-cierre">¡Gracias por apoyar a Atomic Bombs Roller Derby! 💣🛼</p>
+  <p class="acerca-cierre">&iexcl;Gracias por apoyar a Atomic Bombs Roller Derby! &#x1F4A3;&#x1F6FC;</p>
 </section>
       <!-- Modal oculto -->
       <div id="modal" class="modal">
@@ -128,42 +128,48 @@
     <!-- Formulario dentro del modal -->
     <form id="userForm">
       <input type="text" id="nombre" name="nombre" placeholder="Nombre" required />
-      <input type="tel" id="celular" name="celular" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g, '').slice(0, 10)" required/>
+      <input type="tel" id="celular" name="celular" placeholder="Ej: 1134567890" minlength="10" maxlength="15" pattern="[0-9]{10,15}" oninput="this.value=this.value.replace(/[^0-9]/g, '').slice(0, 15)" required/>
       <select id="metodoPago" name="metodoPago" required>
-        <option value="">Seleccionar método de pago</option>
+        <option value="">Seleccionar m&eacute;todo de pago</option>
         <option value="transferencia">Transferencia</option>
         <option value="efectivo">Efectivo</option>
       </select>
       <div id="transferenciaBox" class="hidden">
         <p><strong>Datos para transferir:</strong></p>
         <p>Banco Provincia</p>
-        <p>CBU: 0140130703505453704260</p>
-        <p>Alias: POPA.BLOQUE.ATADO</p>
+<p>CBU: 0140130703505453704260 
+  <button type="button" data-copy-text="0140130703505453704260" aria-label="Copiar CBU" style="background:none; border:none; cursor:pointer; font-size:1rem; padding:0 4px;">&#x1F4CB;</button>
+</p>
+<p>Alias: ATOMIC.BOMBS.2026 
+  <button type="button" data-copy-text="ATOMIC.BOMBS.2026" aria-label="Copiar alias" style="background:none; border:none; cursor:pointer; font-size:1rem; padding:0 4px;">&#x1F4CB;</button>
+</p>
         <P>Alessia Precedo</P>
         <p style="margin-top: 10px">
-          Una vez que hayas abonado, una Atomica te escribira de inmediato. Exitos y esperemos que ganes!!!
+          Enviar comprobante de pago a nuestro email: <a href="mailto:atomictesoreria@gmail.com">atomictesoreria@gmail.com</a>
+          <br>
+          Exitos y esperemos que ganes &#x1F495;
         </p>
       </div>
       <button id="guardar" type="submit">Guardar</button>
     </form>
-    <div id="formLoader" class="loader hidden">⏳ Guardando datos...</div>
-    <p id="mensajeExito" class="success hidden">¡Guardado con éxito!</p>
+    <div id="formLoader" class="loader hidden">&#x23F3; Guardando datos...</div>
+    <p id="mensajeExito" class="success hidden">&iexcl;Guardado con &eacute;xito!</p>
   </div>
 </div>
 <div id="modalSinNumeros" class="modal">
   <div class="modal-content" style="text-align: center;">
     <span id="closeSinNumeros" class="close">&times;</span>
-    <div style="font-size: 3rem; margin-bottom: 10px;">😔</div>
-    <h2 style="color:#fff; font-size:1.3rem; margin-bottom:10px;">No hay números disponibles</h2>
+    <div style="font-size: 3rem; margin-bottom: 10px;">&#x1F614;</div>
+    <h2 style="color:#fff; font-size:1.3rem; margin-bottom:10px;">No hay n&uacute;meros disponibles</h2>
     <p style="color:rgba(255,255,255,0.6); font-size:0.95rem;">
-      Todos los números ya fueron vendidos.<br/>¡Gracias por tu interés!
+      Todos los n&uacute;meros ya fueron vendidos.<br/>&iexcl;Gracias por tu inter&eacute;s!
     </p>
   </div>
 </div>
       </div>
     </main>
 <footer>
-  <p>&copy; 2025 Atomic Bombs Roller Derby. Todos los derechos reservados. — Sitio creado por <a href="https://www.instagram.com/_desfasada_/">Alessia Precedo</a>.</p>
+  <p>&copy; 2025 Atomic Bombs Roller Derby. Todos los derechos reservados. &mdash; Sitio creado por <a href="https://www.instagram.com/_desfasada_/">Alessia Precedo</a>.</p>
 </footer>
 
 <!-- Botones flotantes -->
@@ -173,7 +179,7 @@
       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163c-3.259 0-3.667.014-4.947.072-1.609.074-3.032.4-4.122 1.489C1.841 2.65 1.515 4.073 1.441 5.682 1.383 6.962 1.369 7.37 1.369 12c0 4.63.014 5.038.072 6.318.074 1.609.4 3.032 1.489 4.122 1.09 1.089 2.513 1.415 4.122 1.489C8.333 23.986 8.741 24 12 24c3.259 0 3.667-.014 4.947-.072 1.609-.074 3.032-.4 4.122-1.489 1.089-1.09 1.415-2.513 1.489-4.122.058-1.28.072-1.688.072-6.318 0-4.63-.014-5.038-.072-6.318-.074-1.609-.4-3.032-1.489-4.122C19.98 1.841 18.557 1.515 16.948 1.441 15.667 1.383 15.259 1.369 12 1.369zm0 5.838a4.793 4.793 0 1 0 0 9.586 4.793 4.793 0 0 0 0-9.586zm0 7.908a3.115 3.115 0 1 1 0-6.23 3.115 3.115 0 0 1 0 6.23zm6.406-8.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
     </svg>
   </a>
-  <a href="mailto:atomic.bombs.roller.derby@gmail.com" class="flotante flotante-mail" title="Email">
+  <a href="mailto:atomictesoreria@gmail.com" class="flotante flotante-mail" title="Email">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
       <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
     </svg>

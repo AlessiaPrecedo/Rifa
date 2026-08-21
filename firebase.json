@@ -4,7 +4,20 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": ".",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/.*/**",
+      ".git/**",
+      ".firebase/**",
+      "**/node_modules/**",
+      "README.md",
+      "LICENSE",
+      "package.json",
+      "package-lock.json",
+      "firestore.rules",
+      "firestore.indexes.json"
+    ]
   }
 }
