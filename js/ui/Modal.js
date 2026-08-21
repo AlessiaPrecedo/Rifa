@@ -21,7 +21,7 @@ export class Modal {
     this.numerosSeleccionados.textContent =
       "Tus números: " + numeros.join(", ");
 
-    const precioUnitario = 3000;
+    const precioUnitario = 2500;
     const tieneDescuento = numeros.length >= 2;
     const subtotal = numeros.length * precioUnitario;
     const total = tieneDescuento ? subtotal * 0.75 : subtotal;

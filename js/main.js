@@ -4,11 +4,10 @@ import { NumbersService } from "./services/NumbersService.js";
 import { Modal } from "./ui/Modal.js";
 import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
 import { setupCopyButtons } from "./ui/copyButtons.js";
-import premio1 from "../assets/premios/premio1.jpg";
-import premio2 from "../assets/premios/premio2.jpg";
-import premio3 from "../assets/premios/premio3.jpg";
-import premio4 from "../assets/premios/premio4.jpg";
-import premio5 from "../assets/premios/premio5.jpg";
+import parlante1 from "../assets/premios/parlante1.jpg";
+import parlante2 from "../assets/premios/parlante2.jpg";
+import luigi from "../assets/premios/luigi.jpg";
+
 // --------------------
 // DATOS INICIALES
 // --------------------
@@ -16,7 +15,7 @@ let numbersService;
 const MIN_CELULAR_DIGITOS = 10;
 const MAX_CELULAR_DIGITOS = 15;
 
-const allNumbers = Array.from({ length: 100 }, (_, i) => i).map((num) =>
+const allNumbers = Array.from({ length: 300 }, (_, i) => i).map((num) =>
   num.toString().padStart(2, "0"),
 );
 
@@ -210,11 +209,9 @@ setupCopyButtons();
 
 function cargarCarrusel() {
   const fotos = [
-    premio1,
-    premio2,
-    premio3,
-    premio4,
-    premio5,
+    parlante1,
+    parlante2,
+    luigi,
     // agregas o quitas fotos aca
   ];
   const inner = document.getElementById("carruselInner");
