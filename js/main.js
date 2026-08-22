@@ -227,8 +227,7 @@ function cargarCarrusel() {
     <div class="carousel-item ${index === 0 ? "active" : ""}">
       <img 
         src="${foto}" 
-        class="d-block w-100" 
-        style="height:400px; width:100%; object-fit:contain;background: #000; border-radius:10px; cursor:zoom-in;"
+        class="d-block w-100 premio-carrusel"
         onclick="abrirZoom('${foto}')"
       />
     </div>

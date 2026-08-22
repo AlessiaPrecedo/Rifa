@@ -148,6 +148,25 @@ header h1 img {
   height: 45px;
 }
 
+/* Las fotos del carrusel conservan su proporción original. */
+#carruselFotos {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+#carruselFotos .carousel-item {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000;
+}
+
+#carruselFotos .premio-carrusel {
+  height: auto;
+  max-height: none;
+  object-fit: initial;
+  cursor: zoom-in;
+}
+
 .numero {
   padding: 10px 0;
   text-align: center;
