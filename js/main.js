@@ -224,15 +224,15 @@ function cargarCarrusel() {
 
   fotos.forEach((foto, index) => {
     inner.innerHTML += `
-      <div class="carousel-item ${index === 0 ? "active" : ""}">
-        <img 
-          src="${foto}" 
-          class="d-block w-100" 
-          style="max-height:400px; object-fit:cover; border-radius:10px; cursor:zoom-in;"
-          onclick="abrirZoom('${foto}')"
-        />
-      </div>
-    `;
+    <div class="carousel-item ${index === 0 ? "active" : ""}">
+      <img 
+        src="${foto}" 
+        class="d-block w-100" 
+        style="height:400px; width:100%; object-fit:contain;background: #000; border-radius:10px; cursor:zoom-in;"
+        onclick="abrirZoom('${foto}')"
+      />
+    </div>
+  `;
   });
 }
 
