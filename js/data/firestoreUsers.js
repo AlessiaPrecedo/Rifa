@@ -4,12 +4,14 @@ import {
   orderBy,
   onSnapshot,
   doc,
-  updateDoc,
-  deleteDoc,
   writeBatch, // Añadimos batch para que sea más rápido y seguro
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 import { db } from "../firebase/firebaseConfig.js";
+import {
+  ESTADOS_NUMERO,
+  obtenerIdFirestoreNumero,
+} from "./firestorenumbers.js";
 
 export function listenUsersRealtime(callback) {
   const usersRef = collection(db, "users");
@@ -34,9 +36,8 @@ export async function updatePagoConfirmado(user) {
 
   // 2. Actualizar cada número a estado "vendido"
   user.numeros.forEach((num) => {
-    const idFormateado = num.toString().padStart(2, "0");
-    const numberRef = doc(db, "numbers", idFormateado);
-    batch.update(numberRef, { estado: "vendido" });
+    const numberRef = doc(db, "numbers", obtenerIdFirestoreNumero(num));
+    batch.update(numberRef, { estado: ESTADOS_NUMERO.VENDIDO });
   });
 
   try {
@@ -53,12 +54,11 @@ export async function eliminarUsuarioYRestaurarNumeros(user) {
     const batch = writeBatch(db);
 
     for (const num of user.numeros) {
-      const idFormateado = num.toString().padStart(2, "0");
-      const numberRef = doc(db, "numbers", idFormateado);
+      const numberRef = doc(db, "numbers", obtenerIdFirestoreNumero(num));
 
       // Volvemos el número a su estado inicial
       batch.update(numberRef, {
-        estado: "disponible",
+        estado: ESTADOS_NUMERO.DISPONIBLE,
         UsuarioId: "",
       });
     }

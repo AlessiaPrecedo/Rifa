@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { inicializarNumerosRifa } from "./data/firestorenumbers.js";
 
 // --- SEGURIDAD Y CARGA ---
 onAuthStateChanged(auth, (user) => {
@@ -30,6 +31,34 @@ btnLogout.addEventListener("click", async () => {
   }
 });
 
+const btnInicializarNumeros = document.getElementById(
+  "btn-inicializar-numeros",
+);
+const estadoInicializacion = document.getElementById("estado-inicializacion");
+
+btnInicializarNumeros.addEventListener("click", async () => {
+  if (!confirm("Se crearán solo los números faltantes del 0 al 299. ¿Continuar?")) {
+    return;
+  }
+
+  btnInicializarNumeros.disabled = true;
+  estadoInicializacion.textContent = "Creando números...";
+
+  try {
+    const creados = await inicializarNumerosRifa();
+    estadoInicializacion.textContent =
+      creados === 0
+        ? "Los 300 números ya existen en Firebase."
+        : `Se crearon ${creados} números en Firebase.`;
+  } catch (error) {
+    console.error("Error al inicializar números:", error);
+    estadoInicializacion.textContent =
+      "No se pudieron crear los números. Verificá las reglas y tu sesión de administrador.";
+  } finally {
+    btnInicializarNumeros.disabled = false;
+  }
+});
+
 // --- RENDERIZADO DE LA LISTA ---
 const adminList = document.getElementById("adminList");
 
@@ -48,7 +77,7 @@ function renderAdminList(users) {
       💰 Total: $${(user.total ?? "Sin dato").toLocaleString("es-AR")}
 
       <button class="btnConfirmarPago" data-id="${user.id}">
-        ${user.pagoConfirmado ? "✅ Pagado" : "❌ Pendiente"}
+        ${user.pagoConfirmado ? "✅ Vendido" : "❌ Pendiente"}
       </button>
       <button class="btnEliminar" data-id="${user.id}">🗑 Eliminar y Liberar</button>
       <hr>
@@ -69,6 +98,8 @@ function configurarBotones(users) {
       const user = users.find((u) => u.id === userId); // Buscamos el objeto completo
 
       if (user) {
+        if (user.pagoConfirmado) return;
+
         try {
           // Pasamos el objeto 'user' completo
           await updatePagoConfirmado(user);

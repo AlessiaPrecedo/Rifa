@@ -1,3 +1,8 @@
+import {
+  ESTADOS_NUMERO,
+  normalizarEstadoNumero,
+} from "../data/firestorenumbers.js";
+
 export class NumbersService {
   constructor(allNumbers, statesMap) {
     this.allNumbers = allNumbers;
@@ -7,7 +12,10 @@ export class NumbersService {
 
   getEstado(numId) {
     // Si el número no existe en el mapa, por defecto está disponible
-    return this.statesMap[numId] || "disponible";
+    return (
+      normalizarEstadoNumero(this.statesMap[numId]) ||
+      ESTADOS_NUMERO.DISPONIBLE
+    );
   }
 
   toggleNumber(numId) {

@@ -1,8 +1,11 @@
-import { getTakenNumbersFromFirestore } from "./data/firestorenumbers.js";
+import {
+  ESTADOS_NUMERO,
+  listenNumberStates,
+  reservarNumerosSeguro,
+} from "./data/firestorenumbers.js";
 
 import { NumbersService } from "./services/NumbersService.js";
 import { Modal } from "./ui/Modal.js";
-import { reservarNumerosSeguro } from "./data/firestorenumbers.js";
 import { setupCopyButtons } from "./ui/copyButtons.js";
 import parlante1 from "../assets/premios/parlante1.jpg";
 import parlante2 from "../assets/premios/parlante2.jpg";
@@ -19,15 +22,21 @@ const allNumbers = Array.from({ length: 300 }, (_, i) => i).map((num) =>
   num.toString().padStart(2, "0"),
 );
 
-async function initApp() {
-  const statesMap = await getTakenNumbersFromFirestore();
-
+function actualizarEstados(statesMap) {
+  const seleccionActual = numbersService?.selectedNumbers ?? [];
   numbersService = new NumbersService(allNumbers, statesMap);
+  numbersService.selectedNumbers = seleccionActual.filter(
+    (numId) =>
+      numbersService.getEstado(numId) === ESTADOS_NUMERO.DISPONIBLE,
+  );
 
   if (numerosVisibles) renderNumeros();
 }
 
-initApp();
+listenNumberStates(actualizarEstados, (error) => {
+  console.error("No se pudieron cargar los estados de los números:", error);
+  alert("No se pudieron cargar los números. Intentá recargar la página.");
+});
 
 const metodoPagoSelect = document.getElementById("metodoPago");
 const transferenciaBox = document.getElementById("transferenciaBox");
@@ -73,9 +82,9 @@ function renderNumeros() {
     // Obtenemos el estado directamente del service usando el ID ("01", "02"...)
     const estado = numbersService.getEstado(numId);
 
-    if (estado === "vendido") {
+    if (estado === ESTADOS_NUMERO.VENDIDO) {
       div.classList.add("vendido");
-    } else if (estado === "reservado") {
+    } else if (estado === ESTADOS_NUMERO.RESERVADO) {
       div.classList.add("reservado");
     }
 
@@ -86,7 +95,7 @@ function renderNumeros() {
 
     div.addEventListener("click", () => {
       // Bloqueamos si no esta disponible
-      if (estado !== "disponible") return;
+      if (estado !== ESTADOS_NUMERO.DISPONIBLE) return;
 
       numbersService.toggleNumber(numId);
       renderNumeros();
@@ -106,7 +115,8 @@ btnVer.addEventListener("click", () => {
 
   if (!numerosVisibles) {
     const hayDisponibles = allNumbers.some(
-      (numId) => numbersService.getEstado(numId) === "disponible",
+      (numId) =>
+        numbersService.getEstado(numId) === ESTADOS_NUMERO.DISPONIBLE,
     );
 
     if (!hayDisponibles) {
@@ -187,7 +197,6 @@ form.addEventListener("submit", async (e) => {
       mensajeExito.classList.add("hidden");
     }, 2000);
 
-    await initApp();
   } catch (error) {
     console.error(error);
     formLoader.classList.add("hidden");
