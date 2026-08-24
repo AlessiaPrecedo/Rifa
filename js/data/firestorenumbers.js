@@ -47,13 +47,26 @@ export function normalizarEstadoNumero(estado) {
 function crearMapaEstados(snapshot) {
   const states = {};
 
-  snapshot.forEach((doc) => {
+  snapshot.forEach((numberDoc) => {
     try {
-      states[obtenerEtiquetaNumero(doc.id)] = normalizarEstadoNumero(
-        doc.data().estado,
+      const id = numberDoc.id;
+
+      // Convertimos el ID a número.
+      const numero = Number(id);
+
+      // ID oficial: sin ceros a la izquierda.
+      const idOficial = String(numero);
+
+      // Ignoramos documentos duplicados como "00", "01", "09".
+      if (id !== idOficial) {
+        return;
+      }
+
+      states[obtenerEtiquetaNumero(id)] = normalizarEstadoNumero(
+        numberDoc.data().estado,
       );
     } catch {
-      // Ignoramos documentos ajenos a la rifa 00-99.
+      console.warn("Documento inválido ignorado:", numberDoc.id);
     }
   });
 
@@ -111,8 +124,7 @@ export async function reservarNumerosSeguro({
       const snap = await transaction.get(ref);
       if (
         snap.exists() &&
-        normalizarEstadoNumero(snap.data().estado) !==
-          ESTADOS_NUMERO.DISPONIBLE
+        normalizarEstadoNumero(snap.data().estado) !== ESTADOS_NUMERO.DISPONIBLE
       ) {
         throw new Error(
           `❌ El número ${obtenerEtiquetaNumero(ref.id)} ya no está disponible`,
@@ -127,8 +139,8 @@ export async function reservarNumerosSeguro({
         ref,
         {
           estado: ESTADOS_NUMERO.RESERVADO,
-        UsuarioId: userId,
-        fechaTransaccion: serverTimestamp(),
+          UsuarioId: userId,
+          fechaTransaccion: serverTimestamp(),
         },
         { merge: true },
       );
